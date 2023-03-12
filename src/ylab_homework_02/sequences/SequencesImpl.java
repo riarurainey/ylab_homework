@@ -4,6 +4,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class SequencesImpl implements SequenceGenerator {
+
     @Override
     public void a(int n) {
         IntStream.iterate(2, i -> i + 2)

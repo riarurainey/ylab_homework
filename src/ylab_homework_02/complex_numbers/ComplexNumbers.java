@@ -1,6 +1,7 @@
 package ylab_homework_02.complex_numbers;
 
 public class ComplexNumbers {
+
     private ComplexNumbers() {
 
     }
@@ -20,7 +21,6 @@ public class ComplexNumbers {
         return complexNumber;
     }
 
-
     public static ComplexNumber multiply(ComplexNumber number1, ComplexNumber number2) {
         ComplexNumber complexNumber = new ComplexNumber(0.0, 0.0);
         complexNumber.setReal(number1.getReal() * number2.getReal());
@@ -29,11 +29,13 @@ public class ComplexNumbers {
     }
 
     public static double abs(ComplexNumber number) {
-
         double real = number.getReal();
         double imaginary = number.getImaginary();
 
-        return Math.sqrt(Math.pow(2, real) + Math.pow(2, imaginary));
-
+        if (real != 0.0 || imaginary != 0) {
+            return Math.sqrt(Math.pow(2, real) + Math.pow(2, imaginary));
+        } else {
+            return 0d;
+        }
     }
 }

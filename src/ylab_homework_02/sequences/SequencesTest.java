@@ -1,8 +1,8 @@
 package ylab_homework_02.sequences;
 
 public class SequencesTest {
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         SequenceGenerator sequenceGenerator = new SequencesImpl();
         System.out.println("Последовательность A:");
         sequenceGenerator.a(10);
@@ -14,6 +14,8 @@ public class SequencesTest {
         sequenceGenerator.d(10);
         System.out.println("\nПоследовательность E:");
         sequenceGenerator.e(10);
+        System.out.println("\nПоследовательность F:");
+        sequenceGenerator.f(10);
         System.out.println("\nПоследовательность G:");
         sequenceGenerator.g(10);
         System.out.println("\nПоследовательность H:");

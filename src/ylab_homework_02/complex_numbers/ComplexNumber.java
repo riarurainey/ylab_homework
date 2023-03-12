@@ -2,9 +2,6 @@ package ylab_homework_02.complex_numbers;
 
 public class ComplexNumber {
 
-
-
-
     private double real;
     private double imaginary;
 
@@ -12,7 +9,7 @@ public class ComplexNumber {
         this(real, 0.0);
     }
 
-    public ComplexNumber (double real, double imaginary) {
+    public ComplexNumber(double real, double imaginary) {
         this.real = real;
         this.imaginary = imaginary;
     }
@@ -32,10 +29,22 @@ public class ComplexNumber {
     public void setImaginary(double imaginary) {
         this.imaginary = imaginary;
     }
+
     @Override
     public String toString() {
-        return "Комплексное число: " +
-                "действительная часть - " + real +
-                ", мнимая часть - " + imaginary;
+
+        if (real == 0) {
+            return imaginary + "i";
+        }
+
+        if (imaginary == 0) {
+            return String.valueOf(real);
+        }
+
+        if (imaginary < 0) {
+            return real + " - " + (-imaginary) + "i";
+        }
+
+        return real + " + " + imaginary + "i";
     }
 }
