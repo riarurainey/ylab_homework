@@ -1,6 +1,6 @@
 package ylab_homework_02.complex_numbers;
 
-public class ComplexNumbers {
+public final class ComplexNumbers {
 
     private ComplexNumbers() {
 
