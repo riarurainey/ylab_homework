@@ -6,15 +6,14 @@ import java.util.Map;
 import java.util.Set;
 
 public class DatedMapImpl implements DatedMap {
-    Map<String, String> storage = new HashMap<>();
 
+    Map<String, String> storage = new HashMap<>();
     Map<String, Date> dateMap = new HashMap<>();
 
     @Override
     public void put(String key, String value) {
         storage.put(key, value);
         dateMap.put(key, new Date());
-
     }
 
     @Override

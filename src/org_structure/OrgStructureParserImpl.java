@@ -7,22 +7,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class OrgStructureParserImpl implements OrgStructureParser {
+
     @Override
-    public Employee parseStructure(File csvFile) throws IOException {
+    public Employee parseStructure(File csvFile) {
         List<String> parseStrings = parseFromFile(csvFile);
-        List<Employee> employeeList = parseEmployeesFromString(parseStrings);
+        List<Employee> employeeList = parseEmployees(parseStrings);
+        return getBoss(employeeList);
+    }
+
+    private Employee getBoss(List<Employee> employeeList) {
         for (Employee employee : employeeList) {
-            System.out.println(employee);
+            if (employee.getBossId() == null) {
+                return employee;
+            }
         }
         return null;
     }
 
-    private List<Employee> parseEmployeesFromString(List<String> parseStrings) {
+    private List<Employee> parseEmployees(List<String> parseStrings) {
         List<Employee> employeeList = new ArrayList<>();
 
         for (String str : parseStrings) {
@@ -40,6 +46,10 @@ public class OrgStructureParserImpl implements OrgStructureParser {
         Map<Long, Employee> employeeMap = employeeList.stream()
                 .collect(Collectors.toMap(Employee::getId, Function.identity()));
 
+        Map<Long, List<Employee>> bossEmMap = employeeList.stream().
+                filter(employee -> employee.getBossId() != null)
+                .collect(Collectors.groupingBy(Employee::getBossId));
+
 
         employeeList.forEach(employee -> {
             Long bossId = employee.getBossId();
@@ -47,9 +57,9 @@ public class OrgStructureParserImpl implements OrgStructureParser {
                 Employee boss = employeeMap.get(bossId);
                 if (boss != null) {
                     employee.setBoss(boss);
-
                 }
             }
+            employee.setSubordinate(bossEmMap.get(employee.getId()));
         });
 
         return employeeList;

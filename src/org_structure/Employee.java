@@ -2,6 +2,8 @@ package org_structure;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Employee {
     private Long id;
@@ -63,6 +65,9 @@ public class Employee {
     public List<Employee> getSubordinate() {
         return subordinate;
     }
+    public void setSubordinate(List<Employee> subordinates) {
+        this.subordinate = subordinates;
+    }
 
     public void addSubordinate(Employee employee) {
         subordinate.add(employee);
@@ -70,13 +75,9 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
+        return "id=" + id +
                 ", bossId=" + bossId +
                 ", name='" + name + '\'' +
-                ", position='" + position + '\'' +
-                ", boss=" + boss +
-                ", subordinate=" + subordinate +
-                '}';
+                ", position='" + position + '\'';
     }
 }
