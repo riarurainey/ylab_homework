@@ -9,6 +9,7 @@ import java.util.List;
 public class Sorter {
 
     private static final int CHUNK_SIZE = 10000;
+    private static final String FILE_SOURCE = "src/file_sort/resources/merged.txt";
 
     public File sortFile(File dataFile) throws IOException {
         List<File> chunks = splitFileIntoChunks(dataFile);
@@ -83,7 +84,7 @@ public class Sorter {
                 readers.add(new BufferedReader(new FileReader(chunk)));
             }
 
-            File mergedFile = new File("src/file_sort/resources/merged.txt");
+            File mergedFile = new File(FILE_SOURCE);
             BufferedWriter writer = new BufferedWriter(new FileWriter(mergedFile));
             List<Long> values = new ArrayList<>();
 
