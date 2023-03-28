@@ -1,9 +1,7 @@
-package org_structure;
+package ylab_homework_03.org_structure;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Employee {
     private Long id;
