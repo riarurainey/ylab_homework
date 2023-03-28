@@ -1,4 +1,4 @@
-package transliterator;
+package ylab_homework_03.transliterator;
 
 import java.util.HashMap;
 import java.util.Map;

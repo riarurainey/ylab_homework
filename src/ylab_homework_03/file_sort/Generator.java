@@ -1,4 +1,4 @@
-package file_sort;
+package ylab_homework_03.file_sort;
 
 import java.io.File;
 import java.io.IOException;

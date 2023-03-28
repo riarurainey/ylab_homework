@@ -1,4 +1,4 @@
-package file_sort;
+package ylab_homework_03.file_sort;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.util.List;
 public class Sorter {
 
     private static final int CHUNK_SIZE = 10000;
-    private static final String FILE_SOURCE = "src/file_sort/resources/merged.txt";
+    private static final String FILE_SOURCE = "src/ylab_homework_03.file_sort/resources/merged.txt";
 
     public File sortFile(File dataFile) throws IOException {
         List<File> chunks = splitFileIntoChunks(dataFile);

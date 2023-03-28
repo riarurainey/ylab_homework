@@ -1,4 +1,4 @@
-package org_structure;
+package ylab_homework_03.org_structure;
 
 import java.io.File;
 import java.io.IOException;

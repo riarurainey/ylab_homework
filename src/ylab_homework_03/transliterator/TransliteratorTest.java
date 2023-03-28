@@ -1,4 +1,4 @@
-package transliterator;
+package ylab_homework_03.transliterator;
 
 public class TransliteratorTest {
 

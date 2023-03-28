@@ -1,4 +1,4 @@
-package password_validator;
+package ylab_homework_03.password_validator;
 
 public class PasswordValidatorImplTest {
 
