@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class MovieTest {
 
-  private static final String FILM_CSV_SOURCE = "src/ylab_homework_04/movie/files/film.csv";
+  private static final String FILM_CSV_SOURCE = "src/io/ylab/intensive/lesson04/movie/files/film.csv";
 
   public static void main(String[] args) throws SQLException {
     DataSource dataSource = initDb();

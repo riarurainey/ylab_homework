@@ -55,11 +55,12 @@ public class PersonApiImpl implements PersonApi {
     @Override
     public Person findPerson(Long personId) throws SQLException {
         PreparedStatement pstm = null;
+        ResultSet resultSet = null;
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM person WHERE person_id = ?";
             pstm = connection.prepareStatement(sql);
             pstm.setLong(1, personId);
-            ResultSet resultSet = pstm.executeQuery();
+            resultSet = pstm.executeQuery();
             if (resultSet.next()) {
                 Person person = new Person();
                 person.setId(personId);
@@ -72,6 +73,7 @@ public class PersonApiImpl implements PersonApi {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
+            resultSet.close();
             pstm.close();
         }
         return null;
@@ -80,10 +82,11 @@ public class PersonApiImpl implements PersonApi {
     @Override
     public List<Person> findAll() throws SQLException {
         PreparedStatement pstm = null;
+        ResultSet resultSet = null;
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM person";
             pstm = connection.prepareStatement(sql);
-            ResultSet resultSet = pstm.executeQuery();
+            resultSet = pstm.executeQuery();
             List<Person> persons = new ArrayList<>();
             while (resultSet.next()) {
                 Person person = new Person();
@@ -97,6 +100,7 @@ public class PersonApiImpl implements PersonApi {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
+            resultSet.close();
             pstm.close();
         }
         return null;

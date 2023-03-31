@@ -13,6 +13,7 @@ import java.util.List;
 public class FileSortImpl implements FileSorter {
     private DataSource dataSource;
     private static final int BATCH_SIZE = 5;
+    private static final String TEMP_FILE = "src/io/ylab/intensive/lesson04/filesort/files/nums-sorted.txt";
 
     public FileSortImpl(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -42,19 +43,23 @@ public class FileSortImpl implements FileSorter {
 
         PreparedStatement pstm = null;
         PrintWriter writer = null;
+        ResultSet resultSet = null;
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM numbers ORDER BY val ASC";
             pstm = connection.prepareStatement(sql);
-            ResultSet resultSet = pstm.executeQuery();
-            writer = new PrintWriter("src/ylab_homework_04/filesort/files/nums-sorted.txt", StandardCharsets.UTF_8);
+            resultSet = pstm.executeQuery();
+            //Создаем временный файл
+            writer = new PrintWriter(TEMP_FILE, StandardCharsets.UTF_8);
             while (resultSet.next()){
                 writer.println(resultSet.getString("val"));
             }
+            return new File(TEMP_FILE);
         } catch (SQLException | IOException throwables) {
             throwables.printStackTrace();
         } finally {
             pstm.close();
             writer.close();
+            resultSet.close();
         }
 
         return null;

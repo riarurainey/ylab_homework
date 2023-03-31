@@ -34,16 +34,18 @@ public class PersistentMapImpl implements PersistentMap {
     public List<String> getKeys() throws SQLException {
         List<String> keys = new ArrayList<>();
         PreparedStatement pstm = null;
+        ResultSet resultSet = null;
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM persistent_map WHERE map_name = ?";
             pstm = connection.prepareStatement(sql);
             pstm.setString(1, mapName);
-            ResultSet resultSet = pstm.executeQuery();
+            resultSet = pstm.executeQuery();
             while (resultSet.next()) {
                 keys.add(resultSet.getString("KEY"));
             }
             return keys;
         } finally {
+            resultSet.close();
             pstm.close();
         }
     }
@@ -51,17 +53,19 @@ public class PersistentMapImpl implements PersistentMap {
     @Override
     public String get(String key) throws SQLException {
         PreparedStatement pstm = null;
+        ResultSet resultSet = null;
         try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM persistent_map WHERE map_name = ? AND KEY = ?";
             pstm = connection.prepareStatement(sql);
             pstm.setString(1, mapName);
             pstm.setString(2, key);
-            ResultSet resultSet = pstm.executeQuery();
+            resultSet = pstm.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getString("value");
             }
             return null;
         } finally {
+            resultSet.close();
             pstm.close();
         }
     }
@@ -84,11 +88,20 @@ public class PersistentMapImpl implements PersistentMap {
     public void put(String key, String value) throws SQLException {
         PreparedStatement pstm = null;
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "INSERT INTO persistent_map (map_name, KEY, value) VALUES (?, ?, ?)";
-            pstm = connection.prepareStatement(sql);
-            pstm.setString(1, mapName);
-            pstm.setString(2, key);
-            pstm.setString(3, value);
+            if (this.get(key) != null) {
+                String sql = "UPDATE persistent_map SET value = ? WHERE KEY = ? AND map_name = ?";
+                pstm = connection.prepareStatement(sql);
+                pstm.setString(1, value);
+                pstm.setString(2, key);
+                pstm.setString(3, mapName);
+
+            } else {
+                String sql = "INSERT INTO persistent_map (map_name, KEY, value) VALUES (?, ?, ?)";
+                pstm = connection.prepareStatement(sql);
+                pstm.setString(1, mapName);
+                pstm.setString(2, key);
+                pstm.setString(3, value);
+            }
             pstm.executeUpdate();
         } finally {
             pstm.close();
