@@ -1,10 +1,8 @@
-package io.ylab.intensive.lesson04.eventsourcing.db;
+package io.ylab.intensive.lesson05.eventsourcing.db;
 
-import io.ylab.intensive.lesson04.eventsourcing.Person;
-import org.springframework.stereotype.Component;
+import io.ylab.intensive.lesson05.eventsourcing.Person;
 
 import java.sql.SQLException;
-
 
 public interface PersonDb {
 
